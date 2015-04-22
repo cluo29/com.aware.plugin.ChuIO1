@@ -1,5 +1,4 @@
 package com.aware.plugin.ChuIO1;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -11,7 +10,7 @@ import com.aware.Aware;
 
 public class Settings extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    public static final String STATUS_PLUGIN_TEMPLATE = "status_plugin_template";
+    public static final String STATUS_PLUGIN_TEMPLATE = "status_plugin_ChuIO1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
