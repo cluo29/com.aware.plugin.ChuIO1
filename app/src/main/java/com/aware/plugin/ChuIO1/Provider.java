@@ -41,26 +41,39 @@ public class Provider extends ContentProvider {
         public static final String _ID = "_id";
         public static final String TIMESTAMP = "timestamp";
         public static final String DEVICE_ID = "device_id";
-        public static final String A_VALUES_0 = "double_A_values_0";   //x axis of acceleroneter m/s^2
+        public static final String A_VALUES_0 = "double_A_values_0";   //x axis of accelerometer m/s^2
         public static final String A_VALUES_1 = "double_A_values_1";    //y
         public static final String A_VALUES_2 = "double_A_values_2";    //z
+        public static final String L_VALUES_0 = "double_L_values_0";    //Light sensor
         public static final String M_VALUES_0 = "double_M_values_0";   //x axis of magnetometer uT
         public static final String M_VALUES_1 = "double_M_values_1";    //y
         public static final String M_VALUES_2 = "double_M_values_2";    //z
-        public static final String R_VALUES_0 = "double_R_values_0";   //x axis of rotation
-        public static final String R_VALUES_1 = "double_R_values_1";    //y
-        public static final String R_VALUES_2 = "double_R_values_2";    //z
+        public static final String GSMSTR_VALUES_0 = "double_GSMSTR_values_0";    //GSM signal strength
+        public static final String GSMNSTR_VALUES_0 = "double_GSMNSTR_values_0";    //GSM Neighbors signal strength
+        public static final String CDMASTR_VALUES_0 = "double_CDMASTR_values_0";    //CDMA RSSI
+        public static final String WIFISTR_VALUES_0 = "double_WIFISTR_values_0";    //WIFI RSSI
+        public static final String LA_VALUES_0 = "double_LA_values_0";   //x axis of linear accelerometer m/s^2
+        public static final String LA_VALUES_1 = "double_LA_values_1";    //y
+        public static final String LA_VALUES_2 = "double_LA_values_2";    //z
     }
     public static final String[] TABLES_FIELDS = {
             ChuIO1_Data._ID + " integer primary key autoincrement," +
                     ChuIO1_Data.TIMESTAMP + " real default 0," +
                     ChuIO1_Data.DEVICE_ID + " text default ''," +
+                    ChuIO1_Data.A_VALUES_0 + " real default 0," +
+                    ChuIO1_Data.A_VALUES_1 + " real default 0," +
+                    ChuIO1_Data.A_VALUES_2 + " real default 0," +
+                    ChuIO1_Data.L_VALUES_0 + " real default 0," +
                     ChuIO1_Data.M_VALUES_0 + " real default 0," +
                     ChuIO1_Data.M_VALUES_1 + " real default 0," +
                     ChuIO1_Data.M_VALUES_2 + " real default 0," +
-                    ChuIO1_Data.R_VALUES_0 + " real default 0," +
-                    ChuIO1_Data.R_VALUES_1 + " real default 0," +
-                    ChuIO1_Data.R_VALUES_2 + " real default 0," +
+                    ChuIO1_Data.GSMSTR_VALUES_0 + " real default 0," +
+                    ChuIO1_Data.GSMNSTR_VALUES_0 + " real default 0," +
+                    ChuIO1_Data.CDMASTR_VALUES_0 + " real default 0," +
+                    ChuIO1_Data.WIFISTR_VALUES_0 + " real default 0," +
+                    ChuIO1_Data.LA_VALUES_0 + " real default 0," +
+                    ChuIO1_Data.LA_VALUES_1 + " real default 0," +
+                    ChuIO1_Data.LA_VALUES_2 + " real default 0," +
                     "UNIQUE("+ ChuIO1_Data.TIMESTAMP+","+ ChuIO1_Data.DEVICE_ID+")"
     };
     private static UriMatcher URIMatcher;
@@ -73,18 +86,26 @@ public class Provider extends ContentProvider {
         AUTHORITY = getContext().getPackageName() + ".provider.mag1";
 
         URIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        URIMatcher.addURI(AUTHORITY, DATABASE_TABLES[0], MAG1);
-        URIMatcher.addURI(AUTHORITY, DATABASE_TABLES[0]+"/#", MAG1_ID);
+        URIMatcher.addURI(AUTHORITY, DATABASE_TABLES[0], CHUIO1);
+        URIMatcher.addURI(AUTHORITY, DATABASE_TABLES[0]+"/#", CHUIO1_ID);
         databaseMap = new HashMap<String, String>();
         databaseMap.put(ChuIO1_Data._ID, ChuIO1_Data._ID);
         databaseMap.put(ChuIO1_Data.TIMESTAMP, ChuIO1_Data.TIMESTAMP);
         databaseMap.put(ChuIO1_Data.DEVICE_ID, ChuIO1_Data.DEVICE_ID);
+        databaseMap.put(ChuIO1_Data.A_VALUES_0, ChuIO1_Data.A_VALUES_0);
+        databaseMap.put(ChuIO1_Data.A_VALUES_1, ChuIO1_Data.A_VALUES_1);
+        databaseMap.put(ChuIO1_Data.A_VALUES_2, ChuIO1_Data.A_VALUES_2);
+        databaseMap.put(ChuIO1_Data.L_VALUES_0, ChuIO1_Data.L_VALUES_0);
         databaseMap.put(ChuIO1_Data.M_VALUES_0, ChuIO1_Data.M_VALUES_0);
         databaseMap.put(ChuIO1_Data.M_VALUES_1, ChuIO1_Data.M_VALUES_1);
         databaseMap.put(ChuIO1_Data.M_VALUES_2, ChuIO1_Data.M_VALUES_2);
-        databaseMap.put(ChuIO1_Data.R_VALUES_0, ChuIO1_Data.R_VALUES_0);
-        databaseMap.put(ChuIO1_Data.R_VALUES_1, ChuIO1_Data.R_VALUES_1);
-        databaseMap.put(ChuIO1_Data.R_VALUES_2, ChuIO1_Data.R_VALUES_2);
+        databaseMap.put(ChuIO1_Data.GSMSTR_VALUES_0, ChuIO1_Data.GSMSTR_VALUES_0);
+        databaseMap.put(ChuIO1_Data.GSMNSTR_VALUES_0, ChuIO1_Data.GSMNSTR_VALUES_0);
+        databaseMap.put(ChuIO1_Data.CDMASTR_VALUES_0, ChuIO1_Data.CDMASTR_VALUES_0);
+        databaseMap.put(ChuIO1_Data.WIFISTR_VALUES_0, ChuIO1_Data.WIFISTR_VALUES_0);
+        databaseMap.put(ChuIO1_Data.LA_VALUES_0, ChuIO1_Data.LA_VALUES_0);
+        databaseMap.put(ChuIO1_Data.LA_VALUES_1, ChuIO1_Data.LA_VALUES_1);
+        databaseMap.put(ChuIO1_Data.LA_VALUES_2, ChuIO1_Data.LA_VALUES_2);
         return true;
     }
 
@@ -110,7 +131,7 @@ public class Provider extends ContentProvider {
 
         int count = 0;
         switch (URIMatcher.match(uri)) {
-            case MAG1:
+            case CHUIO1:
                 count = database.delete(DATABASE_TABLES[0], selection, selectionArgs);
                 break;
             default:
@@ -124,9 +145,9 @@ public class Provider extends ContentProvider {
     @Override
     public String getType(Uri uri) {
         switch (URIMatcher.match(uri)) {
-            case MAG1:
+            case CHUIO1:
                 return ChuIO1_Data.CONTENT_TYPE;
-            case MAG1_ID:
+            case CHUIO1_ID:
                 return ChuIO1_Data.CONTENT_ITEM_TYPE;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
@@ -143,7 +164,7 @@ public class Provider extends ContentProvider {
                 initialValues) : new ContentValues();
 
         switch (URIMatcher.match(uri)) {
-            case MAG1:
+            case CHUIO1:
                 long weather_id = database.insert(DATABASE_TABLES[0], ChuIO1_Data.DEVICE_ID, values);
 
                 if (weather_id > 0) {
@@ -169,7 +190,7 @@ public class Provider extends ContentProvider {
 
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         switch (URIMatcher.match(uri)) {
-            case MAG1:
+            case CHUIO1:
                 qb.setTables(DATABASE_TABLES[0]);
                 qb.setProjectionMap(databaseMap);
                 break;
@@ -198,7 +219,7 @@ public class Provider extends ContentProvider {
 
         int count = 0;
         switch (URIMatcher.match(uri)) {
-            case MAG1:
+            case CHUIO1:
                 count = database.update(DATABASE_TABLES[0], values, selection,
                         selectionArgs);
                 break;
