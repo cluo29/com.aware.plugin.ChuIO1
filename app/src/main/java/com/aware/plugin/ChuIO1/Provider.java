@@ -83,7 +83,7 @@ public class Provider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        AUTHORITY = getContext().getPackageName() + ".provider.mag1";
+        AUTHORITY = getContext().getPackageName() + ".provider.ChuIO1";
 
         URIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         URIMatcher.addURI(AUTHORITY, DATABASE_TABLES[0], CHUIO1);

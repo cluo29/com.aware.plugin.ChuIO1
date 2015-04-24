@@ -153,7 +153,7 @@ public class Plugin extends Aware_Plugin {
     @Override
     public void onCreate() {
         super.onCreate();
-        TAG = "AWARE::Motion Meter";
+        TAG = "AWARE::CHUIO1";
         DEBUG = true;
 
         Intent aware = new Intent(this, Aware.class);
